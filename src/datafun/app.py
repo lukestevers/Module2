@@ -319,22 +319,25 @@ def main() -> None:
     # REQUIRED: Use the "docs/images" folder to store generated charts.
     CHART_PATH = Path("docs/images/measurement-distribution.png")
 
-    # Call an imported function that will show a distribution plot
-    # Pass in the pandas DataFrame (df) along with the selected measurement column.
-    # It will return a matplotlib Axes object representing the distribution plot.
-    ax = show_numeric_distribution(
-        df,
-        column=MEASUREMENT_COLUMN,
-        bin_width=5,
+     # Create a histogram with 5 mm bin widths.
+    plt.figure(figsize=(10, 6))
+
+    plt.hist(
+        df[MEASUREMENT_COLUMN].dropna(),
+        bins=range(30, 66, 5),
+        edgecolor="black",
     )
 
-    # call the save_chart() function and pass in the Axes and the path
-    save_chart(ax, CHART_PATH)
+    plt.xlabel("Bill Length (mm)")
+    plt.ylabel("Number of Penguins")
+    plt.title("Distribution of Penguin Bill Length")
+
+    # Save the chart.
+    plt.savefig(CHART_PATH, bbox_inches="tight")
+
     LOG.info(f"Chart saved successfully at {CHART_PATH}.")
 
-    LOG.info(
-        "IMPORTANT: Close chart window to continue by clicking its X or close button."
-    )
+    plt.show()
     plt.show()
 
     LOG.info("===================================")

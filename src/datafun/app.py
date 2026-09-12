@@ -325,6 +325,7 @@ def main() -> None:
     ax = show_numeric_distribution(
         df,
         column=MEASUREMENT_COLUMN,
+        bin_width=5,
     )
 
     # call the save_chart() function and pass in the Axes and the path
